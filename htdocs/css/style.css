@@ -1,1 +1,37 @@
 /*Code will come*/
+body {
+    color: gray;
+}
+
+.shade {
+    background: #dedfe1;
+    padding: 10px;
+}
+
+.navbar-header a {
+    color: #ee7203;
+}
+
+.navbar-collapse a {
+    color: #ee7203;
+}
+
+.footer-wrap {    
+    color: #f3ca49;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.navbar-header .navbar-toggle .icon-bar {
+    background-color: #ee7203;
+}
+
+.post-content {
+    left:7%;    
+    position: absolute;
+    top:93%;
+}
+
+.img-thumbnail{
+    position:relative;
+}
