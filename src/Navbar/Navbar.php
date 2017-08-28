@@ -13,6 +13,7 @@ class Navbar implements
         \Anax\Common\AppInjectableTrait;
 
     private $currentUrl;
+    private $htmlNavbar;
 
     /**
      * Get HTML for the navbar.
@@ -21,7 +22,6 @@ class Navbar implements
      */
     public function getHTML()
     {
-        //echo $this->currentUrl;
         $classval = $this->config['config']['navbar-class'];
         $divcon = $this->config['config']['div-container'];
         $divnav = $this->config['config']['div-nav'];
@@ -32,13 +32,14 @@ class Navbar implements
         $tail = '"><a href="';
         //could have $this->currentUrl instead.
         foreach ($this->config['items'] as $val) {
-            $htmlNavbar = call_user_func([$this->app->url, "create"], $val['route']);
-            if ($val['route'] == $this->app->request->getRoute()) {
+            $this->setUrlCreator([$this->app->url, "create"], $val['route']);
+            
+            if ($val['route'] == $this->currentUrl) {
                 $active = "active";
             } else {
                 $active = "";
             }
-            $links .= '<li class="' . $active . $tail . $htmlNavbar . '">' . $val['text'] . '</a></li>';
+            $links .= '<li class="' . $active . $tail . $this->htmlNavbar . '">' . $val['text'] . '</a></li>';
         }
         
         $navbar = <<<EOD
@@ -83,8 +84,8 @@ EOD;
      *
      * @return void
      */
-    public function setUrlCreator($urlCreate)
+    public function setUrlCreator($urlCreate, $route)
     {
-        //var_dump($urlCreate);
+        $this->htmlNavbar = call_user_func($urlCreate, $route);
     }
 }
