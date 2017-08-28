@@ -26,10 +26,11 @@ class Navbar implements
         $divcon = $this->config['config']['div-container'];
         $divnav = $this->config['config']['div-nav'];
         $spanicon = $this->config['config']['span-icon'];
-        $home = $this->config['items']['hem']['route'];
         $links = "";
         $active = "";
         $tail = '"><a href="';
+        $this->setUrlCreator([$this->app->url, "create"], $this->config['items']['hem']['route']);
+        $home = $this->htmlNavbar;
         //could have $this->currentUrl instead.
         foreach ($this->config['items'] as $val) {
             $this->setUrlCreator([$this->app->url, "create"], $val['route']);
