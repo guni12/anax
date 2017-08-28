@@ -1,10 +1,29 @@
-/*Code will come*/
+/*My customized code*/
 body {
     color: gray;
 }
 
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.row .content {
+    height: 1500px
+}
+    
+/* Set gray background color and 100% height */
+.sidenav {
+    height: 100%;
+}
+
+.sidenav .nav-pills .active a{
+    background-color: #d3d3d3;
+    background-color: #F5F5F5;
+}
+
+.sidenav .nav-pills a{
+    color: gray;
+}
+
 .shade {
-    background: #dedfe1;
+    background-color: orange;
     padding: 10px;
 }
 
@@ -14,6 +33,10 @@ body {
 
 .navbar-collapse a {
     color: #ee7203;
+}
+
+.navbar-nav .active a {
+    color: purple;
 }
 
 .footer-wrap {    

@@ -26,7 +26,7 @@ class App
 
         // Add common header, navbar and footer
         //$this->view->add("default1/header", [], "header");
-        //$this->view->add("default1/navbar", [], "navbar");
+        $this->view->add("view/navbar", ["navbar" => $this->navbar->getHTML()], "navbar", 0);
         //$this->view->add("default1/footer", [], "footer");
 
         // Add layout, render it, add to response and send.

@@ -18,7 +18,7 @@ $app->router->addInternal("404", function () use ($app) {
     $app->view->add("default1/http_status_code", [
         "title" => "404 Page not found",
         "message" => "The page you are looking for is not here.",
-    ]);
+    ], "main", 0);
     $app->renderPage([
         "title" => $title,
     ], 404);

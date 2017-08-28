@@ -4,4 +4,3 @@
 .phpcs.xml
 .phpmd.xml
 Makefile
-composer.lock

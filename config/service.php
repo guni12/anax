@@ -37,6 +37,9 @@ $app->url->setDefaultsFromConfiguration();
 $app->view->setApp($app);
 $app->view->configure("view.php");
 
+$app->navbar->setApp($app);
+$app->navbar->setCurrentRoute($app->request->getRoute());
+$app->navbar->setUrlCreator([$app->url, "create"]);
 $app->navbar->configure("navbar.php");
 
 // Return the populated $app

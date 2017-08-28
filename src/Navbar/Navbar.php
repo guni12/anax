@@ -12,6 +12,8 @@ class Navbar implements
     use \Anax\Common\ConfigureTrait,
         \Anax\Common\AppInjectableTrait;
 
+    private $currentUrl;
+
     /**
      * Get HTML for the navbar.
      *
@@ -19,15 +21,24 @@ class Navbar implements
      */
     public function getHTML()
     {
+        //echo $this->currentUrl;
         $classval = $this->config['config']['navbar-class'];
         $divcon = $this->config['config']['div-container'];
         $divnav = $this->config['config']['div-nav'];
         $spanicon = $this->config['config']['span-icon'];
         $home = $this->config['items']['hem']['route'];
         $links = "";
-
+        $active = "";
+        $tail = '"><a href="';
+        //could have $this->currentUrl instead.
         foreach ($this->config['items'] as $val) {
-            $links .= '<li><a href="'. $val['route'] . '">' . $val['text'] . '</a></li>';
+            $htmlNavbar = call_user_func([$this->app->url, "create"], $val['route']);
+            if ($val['route'] == $this->app->request->getRoute()) {
+                $active = "active";
+            } else {
+                $active = "";
+            }
+            $links .= '<li class="' . $active . $tail . $htmlNavbar . '">' . $val['text'] . '</a></li>';
         }
         
         $navbar = <<<EOD
@@ -49,8 +60,6 @@ class Navbar implements
 </div>
 </nav>
 EOD;
-        //var_dump($navbar);
-
         return
         $navbar;
     }
@@ -61,11 +70,10 @@ EOD;
      * @param string $route the current route.
      *
      * @return void
-     * add $route later
      */
-    public function setCurrentRoute()
+    public function setCurrentRoute($route)
     {
-        ;
+        $this->currentUrl = $route;
     }
 
     /**
@@ -74,10 +82,9 @@ EOD;
      * @param callable $urlCreate to create framework urls.
      *
      * @return void
-     * add $urlCreate later
      */
-    public function setUrlCreator()
+    public function setUrlCreator($urlCreate)
     {
-        ;
+        //var_dump($urlCreate);
     }
 }

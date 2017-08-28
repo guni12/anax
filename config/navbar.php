@@ -12,15 +12,15 @@ return [
     "items" => [
         "hem" => [
             "text" => "Hem",
-            "route" => "home",
+            "route" => "view/home",
         ],
         "om" => [
             "text" => "Om",
-            "route" => "about",
+            "route" => "view/about",
         ],
         "report" => [
             "text" => "Report",
-            "route" => "report",
+            "route" => "view/report",
         ],
     ]
 ];

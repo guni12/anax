@@ -14,6 +14,8 @@
 </head>
 <body>
 <div class="container">
+<a name="top"></a>
+
 <?php if ($this->regionHasContent("header")) : ?>
 <div class="header-wrap">
     <?php $this->renderRegion("header") ?>
@@ -39,9 +41,16 @@
 <?php endif; ?>
 
 <?php if ($this->regionHasContent("mainleft")) : ?>
-<div class="row">
+<div class="row content">
 <div class="col-sm-7">
     <?php $this->renderRegion("mainleft") ?>
+</div>
+<?php endif; ?>
+
+<?php if ($this->regionHasContent("blogleft")) : ?>
+<div class="row content">
+<div class="col-sm-3 sidenav">
+    <?php $this->renderRegion("blogleft") ?>
 </div>
 <?php endif; ?>
 
@@ -52,9 +61,17 @@
 </div>
 <?php endif; ?>
 
+<?php if ($this->regionHasContent("blogright")) : ?>
+<div class="col-sm-9">
+    <?php $this->renderRegion("blogright") ?>
+</div>
+</div>
+<?php endif; ?>
+
 <?php if ($this->regionHasContent("footer")) : ?>
 <div class="footer-wrap">
     <?php $this->renderRegion("footer") ?>
+</div>
 </div>
 <?php endif; ?>
 </div>
