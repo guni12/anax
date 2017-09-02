@@ -22,5 +22,9 @@ return [
             "text" => "Report",
             "route" => "view/report",
         ],
+        "rem" => [
+            "text" => "Remserver",
+            "route" => "remserver",
+        ],
     ]
 ];

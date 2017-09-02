@@ -15,6 +15,7 @@ class Navbar implements
     private $currentUrl;
     private $htmlNavbar;
 
+
     /**
      * Get HTML for the navbar.
      *

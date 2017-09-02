@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "text": "Testar att skriva text.",
+        "filter": "test"
+    },
+    {
+        "id": 2,
+        "text": "Detta kan man ha, men undvik svenska tecken.",
+        "filter": "annat"
+    }
+]

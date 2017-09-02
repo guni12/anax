@@ -22,7 +22,7 @@ class App
      */
     public function renderPage($data, $status = 200)
     {
-        $data["stylesheets"] = ["css/style.css"];
+        $data["stylesheets"] = ["css/style.css", "css/remserver.css"];
 
         // Add common header, navbar and footer
         //$this->view->add("default1/header", [], "header");
