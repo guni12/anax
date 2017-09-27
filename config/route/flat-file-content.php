@@ -5,7 +5,8 @@
 $app->router->always(function () use ($app) {
     // Get the current route and see if it matches a content/file
     $path = $app->request->getRoute();
-    //echo "$path";
+    $app->navbar->setCurrentRoute($path);
+    
     //var_dump($path); //string given in url
     $file1 = ANAX_INSTALL_PATH . "/content/${path}.md";
     $file2 = ANAX_INSTALL_PATH . "/content/${path}/index.md";
@@ -30,8 +31,5 @@ $app->router->always(function () use ($app) {
     $content = $app->textfilter->parse($content, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
 
     // Render a standard page using layout
-    $app->view->add("default1/article", [
-        "content" => $content->text
-    ]);
-    $app->renderPage($content->frontmatter);
+    $app->renderPage($content->text, $content->frontmatter);
 });

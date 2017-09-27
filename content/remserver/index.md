@@ -1,37 +1,44 @@
-REM Server - a REST Mockup API
+En remserver skapad av Mikael Roos
 ===========================================
 
-This is a mockup server for development of applications working with a REST API. The server responds to any API endpoint, stores data and changes to the data in the user session.
+Detta är en liten server-modell för BTH-kurserna i dbwebb. Den arbetar med ett REST API, frågar och svarar, lagrar och uppdaterar data. Allt just nu skött genom sessioner.
 
-The server has a default dataset for the endpoint `api/users`.
+Det finns några filer/dataset att testa mot:
 
-You can add your own datasets and work with them through `api/[datasets]`.
+`api/users`
+`api/reports`
+`api/comments`
+
+Du kan påverka dem med `api/[datasets]`.
 
 
 
-Try it {#try}
+Testa {#try}
 -------------------------------------------
 
-You can try out the pre-populated dataset `users`.
-
-* [Get all users](api/users)
-* [Get the user with `id=1`](api/users/1)
+* [Alla users](api/users)
+* [User med `id=1`](api/users/1)
+* [Alla report](api/report)
+* [Report med `id=3`](api/report/3)
+* [Alla comments](api/comments)
+* [Comment med `id=2`](api/comments/2)
 
 
 
 API {#api}
 -------------------------------------------
 
-###Get the dataset {#all}
+###Get datasetet {#all}
 
-Get the full dataset, or a part of it.
+Get - hela datasetet, eller en del.
 
 ```text
 GET /api/[dataset]
 GET /api/users
+GET /api/test
 ```
 
-Results.
+Resultat.
 
 ```json
 {
@@ -56,10 +63,10 @@ Results.
 }
 ```
 
-Optional query string parameters.
+Optionell  frågesträng med parametrar.
 
-* `offset` defaults to 0.
-* `limit` defaults to 25.
+* `offset` default är 0.
+* `limit` default är 25.
 
 ```text
 GET /api/users?offset=0&limit=25
@@ -67,15 +74,15 @@ GET /api/users?offset=0&limit=25
 
 
 
-###Get one entry {#one}
+###Get - en post {#one}
 
-Get one entry based on its id.
+Få fram en post med visst id.
 
 ```text
 GET /api/users/7
 ```
 
-Results.
+Resultat.
 
 ```json
 {
@@ -87,9 +94,9 @@ Results.
 
 
 
-###Create a new entry {#create}
+###Lägg till en ny post {#create}
 
-Add a new entry to a dataset, create the dataset if it does not exists and will add a id to the entry.
+Lägg till en ny post till datasetet, skapa setet om det inte redan finns. Ett id kommer att läggas till.
 
 ```text
 POST /api/[dataset]
@@ -116,9 +123,9 @@ Results.
 
 
 
-###Upsert/replace a entry {#upsert}
+###Uppdatera en post {#upsert}
 
-Upsert (insert/update) or replace a entry, create the dataset if it does not exists.
+Uppdatera en post. Skapa den om den inte finns.
 
 ```text
 PUT /api/[dataset]/1
@@ -128,9 +135,9 @@ PUT /api/users/13
 {"id": 13, "firstName": "MegaMic", "lastName": "Roos"}
 ```
 
-The value in the id-field is updated to match the one from the PUT request value.
+Värdet för id-fältet har uppdaterats för att matcha PUT requesten.
 
-Results.
+Resultat.
 
 ```json
 {
@@ -149,7 +156,7 @@ Results.
 
 ###Delete a entry {#delete}
 
-Delete a entry.
+Släng en post.
 
 ```text
 DELETE /api/[dataset]/1
@@ -157,20 +164,20 @@ DELETE /api/[dataset]/1
 DELETE /api/users/13
 ```
 
-The result will always be `null`.
+Resultatet blir alltid `null`.
 
 
 
-Other REM servers {#other}
+Andra REM servrar {#other}
 -------------------------------------------
 
-There are more servers doing the same thing.
+Det finns fler servrar att välja på.
 
 * [REM REST API](http://rem-rest-api.herokuapp.com/)
 
 
 
-Source {#source}
+Källa {#source}
 -------------------------------------------
 
-The source is on GitHub in [dbwebb-se/rem-server](https://github.com/dbwebb-se/rem-server).
+Källkoden finns på GitHub: [dbwebb-se/rem-server](https://github.com/dbwebb-se/rem-server).

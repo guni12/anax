@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "email": "user@user.se",
+        "headline": "TestRubrik",
+        "comment": "__Text i md__"
+    },
+    {
+        "email": "b@b.se",
+        "headline": "Markdown",
+        "comment": "###Kanske fungerar \u00e4ven en s\u00e5n h\u00e4r rubrik###\r\n\r\n*text* och **text** ",
+        "id": 2
+    }
+]

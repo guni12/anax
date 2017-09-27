@@ -32,7 +32,7 @@ class Navbar implements
         $tail = '"><a href="';
         $this->setUrlCreator([$this->app->url, "create"], $this->config['items']['hem']['route']);
         $home = $this->htmlNavbar;
-        //could have $this->currentUrl instead.
+        //can use $this->currentUrl instead.
         foreach ($this->config['items'] as $val) {
             $this->setUrlCreator([$this->app->url, "create"], $val['route']);
             

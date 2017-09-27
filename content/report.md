@@ -1,7 +1,18 @@
 ---
-title: "Min report-titel"
-...
-Min report-sida
-=========================
+title: "Kursmomenten"
 
-Här kommer innehållet till min fina report-sida.
+region: "mainright"
+
+"stylesheets": ["css/style.css"]
+
+views:
+
+    links:
+        region: mainleft
+        template: view/kmomlinks
+        data:
+            headline: #Kursmomenten#
+...
+
+Redovisningarna
+=========================

@@ -21,6 +21,9 @@
         "mos/cimage": "^0.7.19"
     },
     "autoload": {
-    "psr-4": {"Guni\\": "src/"}
+        "psr-4": {
+            "Guni\\": "src/",
+            "Anax\\": "src"
+        }
     }
 }

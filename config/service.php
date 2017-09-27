@@ -4,17 +4,18 @@
  */
 
 // Add all resources to $app
-$app             = new \Guni\App\App();
-$app->request    = new \Anax\Request\Request();
-$app->response   = new \Anax\Response\Response();
-$app->url        = new \Anax\Url\Url();
-$app->router     = new \Anax\Route\RouterInjectable();
-$app->view       = new \Anax\View\ViewContainer();
-$app->textfilter = new \Anax\TextFilter\TextFilter();
-$app->session    = new \Anax\Session\SessionConfigurable();
-$app->navbar     = new \Guni\Navbar\Navbar();
+$app                = new \Guni\App\App();
+$app->request       = new \Anax\Request\Request();
+$app->response      = new \Anax\Response\Response();
+$app->url           = new \Anax\Url\Url();
+$app->router        = new \Anax\Route\RouterInjectable();
+$app->view          = new \Anax\View\ViewContainer();
+$app->textfilter    = new \Anax\TextFilter\TextFilter();
+$app->session       = new \Anax\Session\SessionConfigurable();
+$app->navbar        = new \Guni\Navbar\Navbar();
 $app->rem           = new \Guni\RemServer\RemServer();
 $app->remController = new \Guni\RemServer\RemServerController();
+$app->comm          = new \Guni\Comments\Comments();
 
 // Configure request
 $app->request->init();
@@ -49,6 +50,10 @@ $app->rem->inject(["session" => $app->session]);
 
 // Init controller for the REM Server
 $app->remController->setApp($app);
+
+$app->comm->setApp($app);
+$app->comm->configure("comments.php");
+$app->comm->inject(["session" => $app->session]);
 
 // Return the populated $app
 return $app;

@@ -58,3 +58,17 @@ body {
 .img-thumbnail{
     position:relative;
 }
+
+.headline {
+    font-weight: 900;
+}
+
+.email {
+    font-weight: 900;
+    float: right;
+}
+
+.id {
+    font-weight: 900;
+    float: right;    
+}

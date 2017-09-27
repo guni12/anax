@@ -23,7 +23,9 @@ class RemServerController implements AppInjectableInterface
      */
     public function anyPrepare()
     {
-        $this->app->session->start();
+        //$this->app->session->start();
+        //$data = $this->app->session->get("api");
+        //var_dump($data);
 
         if (!$this->app->rem->hasDataset()) {
             $this->app->rem->init();
@@ -78,6 +80,20 @@ class RemServerController implements AppInjectableInterface
             "limit" => $limit,
             "total" => count($dataset)
         ];
+        //var_dump($res['data']);
+/*<pre class='xdebug-var-dump' dir='ltr'>
+C:\Users\Gunvor\Documents\code\p\dbwebb-kurser\ramverk1\me\anax\src\RemServer\RemServerController.php:81
+array (size=2) 
+  0: 
+array (size=3) 
+    'id': int 1 
+    'header': string 'Kmom01' (length=6)
+    'text' string 'Brödtext för kmom01' (length=21) 
+  1:  
+array (size=3)
+    'id': int 2
+    'header': string 'Kmom02' (length=6)
+    'text': string 'Brödtext för kmom02' (length=21)*/
 
         $this->app->response->sendJson($res);
         exit;

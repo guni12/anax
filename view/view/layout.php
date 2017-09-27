@@ -69,7 +69,7 @@
 <?php endif; ?>
 
 <?php if ($this->regionHasContent("footer")) : ?>
-<div class="footer-wrap">
+<div class="footer-wrap col-sm-9">
     <?php $this->renderRegion("footer") ?>
 </div>
 </div>

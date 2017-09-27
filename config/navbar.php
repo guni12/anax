@@ -12,19 +12,23 @@ return [
     "items" => [
         "hem" => [
             "text" => "Hem",
-            "route" => "view/home",
+            "route" => "",
         ],
         "om" => [
             "text" => "Om",
-            "route" => "view/about",
+            "route" => "about",
         ],
         "report" => [
-            "text" => "Report",
-            "route" => "view/report",
+            "text" => "Redovisningar",
+            "route" => "report",
         ],
         "rem" => [
             "text" => "Remserver",
             "route" => "remserver",
+        ],
+        "blog" => [
+            "text" => "Kommentarer",
+            "route" => "commpage",
         ],
     ]
 ];

@@ -24,3 +24,5 @@ $app->router->handle(
     $app->request->getRoute(),
     $app->request->getMethod()
 );
+
+//$app->session->start();
