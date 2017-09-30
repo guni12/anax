@@ -2,15 +2,19 @@
 
 namespace Guni\Comments;
 
+use \Anax\DI\InjectionAwareInterface;
+use \Anax\DI\InjectionAwareTrait;
+
 /**
  * Comments to generate HTML for the reports page.
  */
 class Comments implements
     \Anax\Common\ConfigureInterface,
-    \Anax\Common\AppInjectableInterface
+    //\Anax\Common\AppInjectableInterface
+    InjectionAwareInterface
 {
-    use \Anax\Common\ConfigureTrait,
-        \Anax\Common\AppInjectableTrait;
+    use InjectionAwareTrait, \Anax\Common\ConfigureTrait;
+        //\Anax\Common\AppInjectableTrait;
 
 
     /**
@@ -51,18 +55,23 @@ class Comments implements
 
     public function getCommFromSess()
     {
-        $array = $this->app->rem->getDataset('comments');
-        $path = $this->app->request->getBaseUrl();
-        $i = 3;
+        $rem = $this->di->get("rem");
+        $request = $this->di->get("request");
+        $textfilter = $this->di->get("textfilter");
+        $view = $this->di->get("view");
+
+        $array = $rem->getDataset('comments');
+        $path = $request->getBaseUrl();
+        $i = 0;
         foreach ($array as $val) {
             $headline = $val['headline'];
             $comment = $val['comment'];
             $email = $val['email'];
             $id = $val['id'];
-            $a = $this->app->textfilter->parse($comment, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
+            $a = $textfilter->parse($comment, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
             //var_dump($a);
             $i .= 1;
-            $this->app->view->add("view/blog", [
+            $view->add("view/blog", [
                 "content" => $a->text,
                 "email" => "<a href = '$path/update'>" . $email . "</a>",
                 "headline" => $headline,
@@ -73,12 +82,15 @@ class Comments implements
 
     public function getCommFromJson()
     {
+        $textfilter = $this->di->get("textfilter");
+        $view = $this->di->get("view");
+
         $path = ANAX_APP_PATH . "/config/remserver/comments.json";
         $content = json_decode(file_get_contents($path));
         //var_dump($content);
         foreach ($content as $key => $value) {
-            $a = $this->app->textfilter->parse($value->comment, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
-            $this->app->view->add("view/blog", [
+            $a = $textfilter->parse($value->comment, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
+            $view->add("view/blog", [
                 "content" => $a->text,
                 "email" => $value->email,
                 "headline" => $value->headline,
@@ -94,8 +106,10 @@ class Comments implements
     */
     public function createForm($idLink = null)
     {
-        //var_dump($this->app->rem->getItem('comments', (int)$idLink));
-        $content = isset($idLink) && null !== $this->app->rem->getItem('comments', (int)$idLink) ? $this->app->rem->getItem('comments', (int)$idLink) : null;
+        $rem = $this->di->get("rem");
+
+        //var_dump($rem->getItem('comments', (int)$idLink));
+        $content = isset($idLink) && null !== $rem->getItem('comments', (int)$idLink) ? $rem->getItem('comments', (int)$idLink) : null;
         $headl = isset($content['headline']) ? $content['headline'] : null;
         $eml = isset($content['email']) ? $content['email'] : null;
         $txt = isset($content['comment']) ? $content['comment'] : null;
@@ -139,48 +153,55 @@ class Comments implements
      */
     public function addComment($komm = null)
     {
+        $view = $this->di->get("view");        
+
         if (!isset($_SESSION)) {
             session_start();
         }
         $form = $this->createForm($komm);
-        //var_dump($this->app->rem->getDataset('comments'));
 
-        $this->app->view->add("default1/article", [
+        $view->add("default1/article", [
             "content" => $form], "mainleft", 0);
 
+        /*
+        $rem = $this->di->get("rem");
+        //var_dump($rem->getDataset('comments'));
+        $textfilter = $this->di->get("textfilter");
         $mdFiles = $this->getComments();
         foreach ($mdFiles as $key => $value) {
             $a = file_get_contents(ANAX_APP_PATH . "/content/comments/" . $value);
                 //var_dump($a);
-            $filtered = $this->app->textfilter->parse($a, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
+            $filtered = $textfilter->parse($a, ["yamlfrontmatter", "shortcode", "markdown", "titlefromheader"]);
             //var_dump($a, $filtered);
-            $this->app->view->add("view/blog", [
+            $view->add("view/blog", [
                     "content" => $filtered->text], "mainright", ($key + 1));
-        }
+        }*/
     }
 
 
     public function inValidate()
     {
+        $request = $this->di->get("request");
+
         if (!isset($_SESSION)) {
             session_start();
         }
-        //var_dump($this->app->request->getBody());
-        $com = $this->app->request->getPost("text_box");
-        $send = $this->app->request->getPost("comment");
+        //var_dump($request->getBody());
+        $com = $request->getPost("text_box");
+        $send = $request->getPost("comment");
         //var_dump($com);
         $this->save($send, $com);
 
-        $del = $this->app->request->getPost("delete");
-        $id = $this->app->request->getPost("id");
+        $del = $request->getPost("delete");
+        $id = $request->getPost("id");
         //var_dump($del);
         $this->delete($del, $id);
 
-        $seeId = $this->app->request->getPost("see");
+        $seeId = $request->getPost("see");
         //var_dump($update);
         $this->show($seeId, $id);
 
-        $update = $this->app->request->getPost("update");
+        $update = $request->getPost("update");
         //var_dump($update);
         $this->update($update, $id);
     }
@@ -191,15 +212,18 @@ class Comments implements
      */
     public function save($send = null, $com = null)
     {
+        $request = $this->di->get("request");
+        $response = $this->di->get("response");
+
         if ($send == "Spara" && ctype_space($com) == false && $com !== "" && $com !== null) {
             $this->sessionSave(
                 array(
-                    'email' => $this->app->request->getPost("email"),
-                    'headline' => $this->app->request->getPost("headline"),
-                    'comment' => $this->app->request->getPost("text_box")
+                    'email' => $request->getPost("email"),
+                    'headline' => $request->getPost("headline"),
+                    'comment' => $request->getPost("text_box")
                 )
             );
-            $this->app->redirect('commpage');
+            $response->redirect('commpage');
         }
     }
 
@@ -210,9 +234,12 @@ class Comments implements
     */
     public function delete($del = null, $id = null)
     {
+        $rem = $this->di->get("rem");
+        $response = $this->di->get("response");
+
         if ($del == "Släng" && ctype_space($id) == false && $id !== "" && $id !== null) {
-            $this->app->rem->deleteItem('comments', $id);
-            $this->app->redirect('commpage');
+            $rem->deleteItem('comments', $id);
+            $response->redirect('commpage');
         };
     }
 
@@ -235,15 +262,19 @@ class Comments implements
     */
     public function update($update = null, $id = null)
     {
+        $request = $this->di->get("request");
+        $rem = $this->di->get("rem");
+        $response = $this->di->get("response");
+
         if ($update == "Ändra" && ctype_space($id) == false && $id !== "" && $id !== null) {
             $entry = array(
-                    'email' => $this->app->request->getPost("email"),
-                    'headline' => $this->app->request->getPost("headline"),
-                    'comment' => $this->app->request->getPost("text_box")
+                    'email' => $request->getPost("email"),
+                    'headline' => $request->getPost("headline"),
+                    'comment' => $request->getPost("text_box")
                 );
-            $this->app->rem->deleteItem('comments', $id);
-            $this->app->rem->upsertItem('comments', $id, $entry);
-            $this->app->redirect('commpage');
+            $rem->deleteItem('comments', $id);
+            $rem->upsertItem('comments', $id, $entry);
+            $response->redirect('commpage');
         }
     }
 
@@ -255,10 +286,12 @@ class Comments implements
      */
     public function sessionSave($array)
     {
+        $rem = $this->di->get("rem");
+
         $key = 'comments';
         var_dump($array);
-        $this->app->rem->addItem($key, $array);
-        //$this->app->rem->saveToFile($key, $array);
+        $rem->addItem($key, $array);
+        //$rem->saveToFile($key, $array);
     }
 
 

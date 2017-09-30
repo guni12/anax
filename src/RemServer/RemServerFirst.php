@@ -29,15 +29,15 @@ class RemServer implements ConfigureInterface
 
 
     /**
-     * Inject dependency to $session..
+     * Inject dependencies.
      *
-     * @param array $session object representing session.
+     * @param array $dependency key/value array with dependencies.
      *
      * @return self
      */
-    public function injectSession($session)
+    public function inject($dependency)
     {
-        $this->session = $session;
+        $this->session = $dependency["session"];
         return $this;
     }
 
@@ -51,15 +51,16 @@ class RemServer implements ConfigureInterface
     public function init()
     {
         $files = $this->config["dataset"];
+        //var_dump($files);
         $dataset = [];
         foreach ($files as $file) {
             $content = file_get_contents($file);
             $key = pathinfo($file, PATHINFO_FILENAME);
             $dataset[$key] = json_decode($content, true);
+            //var_dump($dataset[$key]); // filecontent when initiated
         }
 
         $this->session->set(self::KEY, $dataset);
-        var_dump($this);
         return $this;
     }
 
@@ -108,7 +109,47 @@ class RemServer implements ConfigureInterface
         $data = $this->session->get(self::KEY);
         $data[$key] = $dataset;
         $this->session->set(self::KEY, $data);
+        $data = $this->session->get(self::KEY);
+        //var_dump($data);
         return $this;
+    }
+
+
+
+    /**
+     * Save (the modified) dataset to file.
+     *
+     * @param string $key     for data subset.
+     * @param string $dataset the data to save.
+     *
+     * @return self
+     */
+    public function saveToFile($key, $dataset)
+    {
+        $path = ANAX_APP_PATH . "/config/remserver/" . $key . ".json";
+        $content = file_get_contents($path);
+        //var_dump($content);
+        $tempArray = json_decode($content);
+        //var_dump($tempArray);
+        $max = 0;
+        $repeat = false;
+        foreach ($tempArray as $val) {
+            if ($max < (int)$val["id"]) {
+                $max = (int)$val["id"];
+            }
+            if ($val["comment"] == $dataset["comment"]) {
+                $repeat = true;
+            }
+        }
+        if ($repeat == false) {
+            $nrOfPosts = count($tempArray) + 1;
+            $dataset['id'] = $nrOfPosts;
+            array_push($tempArray, $dataset);
+            //var_dump($tempArray);
+            $jsonData = json_encode($tempArray, JSON_PRETTY_PRINT);
+            //var_dump($jsonData);
+            file_put_contents($path, $jsonData);
+        }
     }
 
 
@@ -149,15 +190,21 @@ class RemServer implements ConfigureInterface
 
         // Get max value for the id
         $max = 0;
+        $repeat = false;
         foreach ($dataset as $val) {
             if ($max < (int)$val["id"]) {
                 $max = (int)$val["id"];
             }
+            if ($val["comment"] == $item["comment"]) {
+                $repeat = true;
+            }
         }
-        $item["id"] = $max + 1;
-        $dataset[] = $item;
-        $this->saveDataset($key, $dataset);
-        return $item;
+        if ($repeat == false) {
+            $item["id"] = $max + 1;
+            $dataset[] = $item;
+            $this->saveDataset($key, $dataset);
+            return $item;
+        }
     }
 
 
@@ -207,9 +254,9 @@ class RemServer implements ConfigureInterface
     public function deleteItem($keyDataset, $itemId)
     {
         $dataset = $this->getDataset($keyDataset);
-
         // Find the item if it exists
         foreach ($dataset as $key => $val) {
+            var_dump((int)$itemId, (int)$val["id"]);
             if ((int)$itemId === (int)$val["id"]) {
                 unset($dataset[$key]);
                 break;

@@ -2,17 +2,17 @@
 
 namespace Guni\RemServer;
 
-use \Anax\DI\InjectionAwareInterface;
-use \Anax\DI\InjectionAwareTrait;
+use \Anax\Common\AppInjectableInterface;
+use \Anax\Common\AppInjectableTrait;
 
 /**
  * A controller for the REM Server.
  *
  * @SuppressWarnings(PHPMD.ExitExpression)
  */
-class RemServerController implements InjectionAwareInterface
+class RemServerController implements AppInjectableInterface
 {
-    use InjectionAwareTrait;
+    use AppInjectableTrait;
 
 
 
@@ -23,13 +23,12 @@ class RemServerController implements InjectionAwareInterface
      */
     public function anyPrepare()
     {
-        $session = $this->di->get("session");
-        $rem     = $this->di->get("rem");
+        //$this->app->session->start();
+        //$data = $this->app->session->get("api");
+        //var_dump($data);
 
-        $session->start();
-
-        if (!$rem->hasDataset()) {
-            $rem->init();
+        if (!$this->app->rem->hasDataset()) {
+            $this->app->rem->init();
         }
     }
 
@@ -42,8 +41,8 @@ class RemServerController implements InjectionAwareInterface
      */
     public function anyInit()
     {
-        $this->di->get("rem")->init();
-        $this->di->get("response")->sendJson(["message" => "The session is initiated with the default dataset."]);
+        $this->app->rem->init();
+        $this->app->response->sendJson(["message" => "The session is initiated with the default dataset."]);
         exit;
     }
 
@@ -56,8 +55,8 @@ class RemServerController implements InjectionAwareInterface
      */
     public function anyDestroy()
     {
-        $this->di->get("session")->destroy();
-        $this->di->get("response")->sendJson(["message" => "The session was destroyed."]);
+        $this->app->session->destroy();
+        $this->app->response->sendJson(["message" => "The session was destroyed."]);
         exit;
     }
 
@@ -72,19 +71,31 @@ class RemServerController implements InjectionAwareInterface
      */
     public function getDataset($key)
     {
-        $request = $this->di->get("request");
-
-        $dataset = $this->di->get("rem")->getDataset($key);
-        $offset  = $request->getGet("offset", 0);
-        $limit   = $request->getGet("limit", 25);
+        $dataset = $this->app->rem->getDataset($key);
+        $offset = $this->app->request->getGet("offset", 0);
+        $limit = $this->app->request->getGet("limit", 25);
         $res = [
             "data" => array_slice($dataset, $offset, $limit),
             "offset" => $offset,
             "limit" => $limit,
             "total" => count($dataset)
         ];
+        //var_dump($res['data']);
+/*<pre class='xdebug-var-dump' dir='ltr'>
+C:\Users\Gunvor\Documents\code\p\dbwebb-kurser\ramverk1\me\anax\src\RemServer\RemServerController.php:81
+array (size=2) 
+  0: 
+array (size=3) 
+    'id': int 1 
+    'header': string 'Kmom01' (length=6)
+    'text' string 'Brödtext för kmom01' (length=21) 
+  1:  
+array (size=3)
+    'id': int 2
+    'header': string 'Kmom02' (length=6)
+    'text': string 'Brödtext för kmom02' (length=21)*/
 
-        $this->di->get("response")->sendJson($res);
+        $this->app->response->sendJson($res);
         exit;
     }
 
@@ -100,15 +111,13 @@ class RemServerController implements InjectionAwareInterface
      */
     public function getItem($key, $itemId)
     {
-        $response = $this->di->get("response");
-
-        $item = $this->di->get("rem")->getItem($key, $itemId);
+        $item = $this->app->rem->getItem($key, $itemId);
         if (!$item) {
-            $response->sendJson(["message" => "The item is not found."]);
+            $this->app->response->sendJson(["message" => "The item is not found."]);
             exit;
         }
 
-        $response->sendJson($item);
+        $this->app->response->sendJson($item);
         exit;
     }
 
@@ -124,11 +133,11 @@ class RemServerController implements InjectionAwareInterface
      */
     public function postItem($key)
     {
-        $entry = $this->di->get("request")->getBody();
+        $entry = $this->app->request->getBody();
         $entry = json_decode($entry, true);
 
-        $item = $this->di->get("rem")->addItem($key, $entry);
-        $this->id->get("response")->sendJson($item);
+        $item = $this->app->rem->addItem($key, $entry);
+        $this->app->response->sendJson($item);
         exit;
     }
 
@@ -143,11 +152,11 @@ class RemServerController implements InjectionAwareInterface
      */
     public function putItem($key, $itemId)
     {
-        $entry = $this->di->get("request")->getBody();
+        $entry = $this->app->request->getBody();
         $entry = json_decode($entry, true);
 
-        $item = $this->di->get("rem")->upsertItem($key, $itemId, $entry);
-        $this->di->get("response")->sendJson($item);
+        $item = $this->app->rem->upsertItem($key, $itemId, $entry);
+        $this->app->response->sendJson($item);
         exit;
     }
 
@@ -163,8 +172,8 @@ class RemServerController implements InjectionAwareInterface
      */
     public function deleteItem($key, $itemId)
     {
-        $this->di->get("rem")->deleteItem($key, $itemId);
-        $this->di->get("response")->sendJson(null);
+        $this->app->rem->deleteItem($key, $itemId);
+        $this->app->response->sendJson(null);
         exit;
     }
 
@@ -177,7 +186,7 @@ class RemServerController implements InjectionAwareInterface
      */
     public function anyUnsupported()
     {
-        $this->di->get("response")->sendJson(["message" => "404. The api/ does not support that."], 404);
+        $this->app->response->sendJson(["message" => "404. The api/ does not support that."], 404);
         exit;
     }
 }

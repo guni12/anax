@@ -23,10 +23,6 @@ class App
     public function renderPage($text, $meta, $status = 200)
     {
         $path = $this->request->getRoute();
-        //var_dump($meta);
-
-        $data["stylesheets"] = ["css/style.css",
-                                "css/remserver.css"];
 
         $data["stylesheets"] = isset($meta["stylesheets"]) ? $meta["stylesheets"] : ["css/style.css"];
         $data["title"] = isset($meta["title"]) ? $meta["title"] : ["Anax"];
@@ -56,11 +52,6 @@ class App
         }
 
         // Add common header, navbar and footer
-        //$this->view->add("default1/header", [], "header");
-        //$this->view->add("default1/navbar", [], "navbar");
-        //$this->view->add("default1/footer", [], "footer");
-
-        // Add common header, navbar and footer
         $this->view->add("view/header", [], "header");
         $this->view->add("view/navbar", [
             "navbar" => $this->navbar->getHTML()
@@ -71,7 +62,7 @@ class App
         $this->view->add("default1/article", [
                 "content" => $text
             ], $region, 0);
-
+        
         // Add layout, render it, add to response and send.
         $this->view->add("view/layout", $data, "layout");
         $body = $this->view->renderBuffered("layout");

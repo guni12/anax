@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e7287b7b85e33125127628d34e32884",
+    "content-hash": "81714b2b4e99ca02049e87e158870ea0",
     "packages": [
         {
             "name": "anax/common",
@@ -106,16 +106,16 @@
         },
         {
             "name": "anax/di",
-            "version": "v1.0.3",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/canax/di.git",
-                "reference": "76fccd044f750751a420ad738b75b9438978cb1c"
+                "reference": "3675a51a1bba028948d6eeaf6de035832c1cc214"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/canax/di/zipball/76fccd044f750751a420ad738b75b9438978cb1c",
-                "reference": "76fccd044f750751a420ad738b75b9438978cb1c",
+                "url": "https://api.github.com/repos/canax/di/zipball/3675a51a1bba028948d6eeaf6de035832c1cc214",
+                "reference": "3675a51a1bba028948d6eeaf6de035832c1cc214",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,57 @@
                 "micro",
                 "mvc"
             ],
-            "time": "2017-08-17T13:41:49+00:00"
+            "time": "2017-09-26T19:12:35+00:00"
+        },
+        {
+            "name": "anax/page",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/canax/page.git",
+                "reference": "e2a60025f39b1121674365eaff3f8955a2975a69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/canax/page/zipball/e2a60025f39b1121674365eaff3f8955a2975a69",
+                "reference": "e2a60025f39b1121674365eaff3f8955a2975a69",
+                "shasum": ""
+            },
+            "require": {
+                "anax/di": "^1.0",
+                "anax/request": "^1.0",
+                "anax/response": "^1.0",
+                "anax/view": "^1.0",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Anax\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikael Roos",
+                    "email": "mos@dbwebb.se",
+                    "homepage": "https://dbwebb.se",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Anax page module.",
+            "homepage": "https://dbwebb.se/anax",
+            "keywords": [
+                "boilerplate",
+                "education",
+                "framework",
+                "micro",
+                "mvc"
+            ],
+            "time": "2017-09-25T10:35:22+00:00"
         },
         {
             "name": "anax/request",

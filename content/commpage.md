@@ -12,4 +12,4 @@ views:
         data:
 ...
 
-###Kommentarsfält###
+###Kommentarsfält, nu enbart sessions:###

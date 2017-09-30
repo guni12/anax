@@ -18,12 +18,14 @@
         "anax/configure": "^1.0",
         "anax/textfilter": "^1.0",
         "symfony/yaml": "^3.3",
-        "mos/cimage": "^0.7.19"
+        "mos/cimage": "^0.7.19",
+        "anax/di": "^1.0",
+        "anax/page": "^1.0"
     },
     "autoload": {
         "psr-4": {
             "Guni\\": "src/",
-            "Anax\\": "src"
+            "Anax\\": "src/"
         }
     }
 }
