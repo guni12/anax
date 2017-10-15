@@ -1,6 +1,6 @@
 <?php
 
-namespace Anax\Page;
+namespace Guni\Page;
 
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
@@ -29,7 +29,8 @@ class ErrorController implements InjectionAwareInterface
             "title" => $title,
             "message" => $message,
         ]);
-        $this->di->get("pageRender")->renderPage(["title" => $title], $status);
+        $tempfix = "";
+        $this->di->get("pageRender")->renderPage($tempfix, ["title" => $title], $status);
     }
 
 

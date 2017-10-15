@@ -4,3 +4,4 @@
 .phpcs.xml
 .phpmd.xml
 Makefile
+/config/database_mysql.php

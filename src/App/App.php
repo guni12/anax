@@ -22,7 +22,7 @@ class App
      */
     public function renderPage($text, $meta, $status = 200)
     {
-        $path = $this->request->getRoute();
+        //$path = $this->request->getRoute();
         //var_dump($meta);
 
         $data["stylesheets"] = ["css/style.css",
@@ -45,6 +45,7 @@ class App
             ], $meta['views']['links']['region'], 0);
         }
 
+        /*
         if ($path == 'commpage') {
             $this->comm->addComment();
             $this->comm->getCommFromSess();
@@ -53,7 +54,7 @@ class App
 
         if ($path == 'validate') {
             $this->comm->inValidate();
-        }
+        }*/
 
         // Add common header, navbar and footer
         //$this->view->add("default1/header", [], "header");

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gunie\Page;
+namespace Guni\Page;
 
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
@@ -22,7 +22,8 @@ class DebugController implements InjectionAwareInterface
     public function info()
     {
         $this->di->get("view")->add("default2/info");
-        $this->di->get("pageRender")->renderPage([
+        $data = "";
+        $this->di->get("pageRender")->renderPage($data, [
             "title" => "Info",
         ]);
     }

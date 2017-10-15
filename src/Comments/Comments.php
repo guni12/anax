@@ -153,7 +153,7 @@ class Comments implements
      */
     public function addComment($komm = null)
     {
-        $view = $this->di->get("view");        
+        $view = $this->di->get("view");
 
         if (!isset($_SESSION)) {
             session_start();

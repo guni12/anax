@@ -1,6 +1,6 @@
 <?php
 
-namespace Anax\Page;
+namespace Guni\Page;
 
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;

@@ -49,6 +49,8 @@ body {
     background-color: #ee7203;
 }
 
+
+
 .post-content {
     left:7%;    
     position: absolute;
@@ -71,4 +73,63 @@ body {
 .id {
     font-weight: 900;
     float: right;    
+}
+
+.bok, .user {
+    width: 100%;
+}
+
+th, td {
+    padding-right: 5%;
+}
+
+th {
+    padding-bottom: 1%;
+}
+
+.title, .author {
+    width: 30%;
+}
+
+.bookimg, .bookllink, .acronym, .useremail, .created, .updated {
+    width: 15%;
+}
+
+.useremail, .created, .updated {
+    width: 20%;
+}
+
+.userid, .isadmin {
+    width: 5%;
+}
+
+.wholebook {
+    width: 100%;
+}
+
+.abook {
+    font-size: 2rem;
+}
+
+.abookimg img {
+    width: 100%;
+    height: auto;
+}
+
+.abook_last a {
+    padding: 5%;
+}
+
+@media (max-width: 450px) {
+    .abookimg, .col-sm-7, .col-xs-7, .abook  {
+        min-width: 100%;
+    }
+}
+
+.button {
+    display: inline-block;
+    width: 20%;
+    border: 1px solid blue;
+    padding: 3px;
+    margin: 2px;
 }

@@ -2,6 +2,7 @@
 /**
  * Config file for the navbar.
  */
+
 return [
     "config" => [
         "navbar-class" => "navbar",
@@ -28,7 +29,11 @@ return [
         ],
         "blog" => [
             "text" => "Kommentarer",
-            "route" => "commpage",
+            "route" => "comm",
+        ],
+        "book" => [
+            "text" => "Böcker",
+            "route" => "book",
         ],
     ]
 ];

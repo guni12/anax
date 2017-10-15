@@ -33,6 +33,21 @@ return [
             "file" => __DIR__ . "/route2/flat-file-content.php",
         ],
         [
+            // Add routes from userController and mount on user/
+            "mount" => "user",
+            "file" => __DIR__ . "/route2/userController.php",
+        ],
+        [
+            // Add routes from bookController and mount on book/
+            "mount" => "book",
+            "file" => __DIR__ . "/route2/bookController.php",
+        ],
+        [
+            // Add routes from commController and mount on book/
+            "mount" => "comm",
+            "file" => __DIR__ . "/route2/commController.php",
+        ],
+        [
             // Keep this last since its a catch all
             "mount" => null,
             "sort" => 999,

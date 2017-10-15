@@ -30,28 +30,50 @@ class Navbar implements
         $url = $this->di->get("url");
         $req = $this->di->get("request");
         $path = $req->getRoute();
-        //var_dump($path);
+
+        $session = $this->di->get("session");
+        $sess = $session->get('user');
+        //var_dump($sess);
 
         $classval = $this->config['config']['navbar-class'];
         $divcon = $this->config['config']['div-container'];
         $divnav = $this->config['config']['div-nav'];
         $spanicon = $this->config['config']['span-icon'];
         $links = "";
-        $active = "";
         $tail = '"><a href="';
+        $welcome = "";
 
-        $this->setUrlCreator([$url, "create"], $this->config['items']['hem']['route']);
+        $this->setUrlCreator($this->config['items']['hem']['route']);
         $home = $this->htmlNavbar;
 
+        $navtext = "Logga in";
+        $navpath = call_user_func([$url, "create"], "user/login");
+
+        if ($sess) {
+            $navtext = "Logga ut";
+            $navpath = call_user_func([$url, "create"], "user/logout");
+            $welcome = $sess['acronym'];
+        }
+
+        $loginout = '<li><a><span class="glyphicon glyphicon-user"></span> ' . $welcome . '</a></li>
+              <li><a href="' . $navpath . '"><span class="glyphicon glyphicon-log-in"></span> ' . $navtext . '</a></li>';
+
+
         foreach ($this->config['items'] as $val) {
-            $this->setUrlCreator([$url, "create"], $val['route']);
+            $this->setUrlCreator($val['route']);
+            $navtext = $val['text'];
             
             if ($val['route'] == $path) {
-                $active = "active";
+                $class = "active";
             } else {
-                $active = "";
+                $class = "";
             }
-            $links .= '<li class="' . $active . $tail . $this->htmlNavbar . '">' . $val['text'] . '</a></li>';
+
+            if ($val['route'] == "user/login") {
+                $class .= " login";
+            }
+            
+            $links .= '<li class="' . $class . $tail . $this->htmlNavbar . '">' . $navtext . '</a></li>';
         }
         
         $navbar = <<<EOD
@@ -65,6 +87,9 @@ class Navbar implements
     </button>
     <a class="navbar-brand" href="{$home}">HosGuni</a>
 </div>
+<ul class="nav navbar-nav navbar-right">
+   {$loginout}   
+</ul>
 <div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
         {$links}
@@ -96,8 +121,9 @@ EOD;
      *
      * @return void
      */
-    public function setUrlCreator($urlCreate, $route)
+    public function setUrlCreator($route)
     {
-        $this->htmlNavbar = call_user_func($urlCreate, $route);
+        $url = $this->di->get("url");
+        $this->htmlNavbar = call_user_func([$url, "create"], $route);
     }
 }

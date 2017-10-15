@@ -16,7 +16,12 @@ return [
         ],
         "response" => [
             "shared" => true,
-            "callback" => "\Anax\Response\Response",
+            //"callback" => "\Anax\Response\Response",
+            "callback" => function () {
+                $obj = new \Anax\Response\ResponseUtility();
+                $obj->setDI($this);
+                return $obj;
+            }
         ],
         "url" => [
             "shared" => true,
@@ -61,9 +66,11 @@ return [
         ],
         "session" => [
             "shared" => true,
+            "active" => true,
             "callback" => function () {
                 $session = new \Anax\Session\SessionConfigurable();
                 $session->configure("session.php");
+                $session->start();
                 return $session;
             }
         ],
@@ -82,7 +89,7 @@ return [
         "errorController" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Anax\Page\ErrorController();
+                $obj = new Guni\Page\ErrorController();
                 $obj->setDI($this);
                 return $obj;
             }
@@ -90,7 +97,7 @@ return [
         "debugController" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Anax\Page\DebugController();
+                $obj = new \Guni\Page\DebugController();
                 $obj->setDI($this);
                 return $obj;
             }
@@ -98,7 +105,7 @@ return [
         "flatFileContentController" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Anax\Page\FlatFileContentController();
+                $obj = new \Guni\Page\FlatFileContentController();
                 $obj->setDI($this);
                 return $obj;
             }
@@ -121,15 +128,6 @@ return [
                 return $rem;
             }
         ],
-        "comm" => [
-            "shared" => true,
-            "callback" => function () {
-                $comm = new \Guni\Comments\Comments();
-                $comm->configure("comments.php");
-                $comm->setDI($this);
-                return $comm;
-            }
-        ],
         "navbar" => [
             "shared" => true,
             "callback" => function () {
@@ -137,6 +135,38 @@ return [
                 $navbar->configure("navbar.php");
                 $navbar->setDI($this);
                 return $navbar;
+            }
+        ],
+        "db" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Anax\Database\DatabaseQueryBuilder();
+                $obj->configure("database.php");
+                return $obj;
+            }
+        ],
+        "userController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Guni\User\UserController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "bookController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Guni\Book\BookController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
+        "commController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Guni\Comments\CommController();
+                $obj->setDI($this);
+                return $obj;
             }
         ],
     ],
