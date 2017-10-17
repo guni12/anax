@@ -2,20 +2,14 @@
 /**
  * Config file for Database.
  *
- * Example for MySQL.
- *  "dsn" => "mysql:host=localhost;dbname=test;",
- *  "username" => "test",
- *  "password" => "test",
- *  "driver_options"  => [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"],
- *
  * Example for SQLite.
  *  "dsn" => "sqlite:memory::",
  *
  */
 
-
+/*
 return [
-        "dsn"             => "",
+        "dsn"             => "mysql:host=localhost;dbname=test;",
         "username"        => "",
         "password"        => "",
         "driver_options"  => [\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"],
@@ -28,3 +22,4 @@ return [
         // True to be verbose on connection failed
         "debug_connect"   => false,
 ];
+*/

@@ -41,3 +41,20 @@ CREATE TABLE Comm (
     `created` DATETIME,
     `updated` DATETIME
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+
+/*
+From SHOW CREATE TABLE Comm\G
+
+CREATE TABLE `Comm` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `userid` varchar(80) COLLATE utf8_swedish_ci NOT NULL,
+ `email` varchar(100) COLLATE utf8_swedish_ci NOT NULL,
+ `title` varchar(256) COLLATE utf8_swedish_ci NOT NULL,
+ `comment` varchar(1000) COLLATE utf8_swedish_ci NOT NULL,
+ `parentid` varchar(80) COLLATE utf8_swedish_ci DEFAULT NULL,
+ `created` datetime DEFAULT NULL,
+ `updated` datetime DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `index_title` (`title`(255))
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci
+*/

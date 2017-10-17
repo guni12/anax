@@ -164,7 +164,7 @@ return [
         "commController" => [
             "shared" => true,
             "callback" => function () {
-                $obj = new \Guni\Comments\CommController();
+                $obj = new \Anax\Comments\CommController();
                 $obj->setDI($this);
                 return $obj;
             }

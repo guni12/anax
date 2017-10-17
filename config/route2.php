@@ -43,7 +43,7 @@ return [
             "file" => __DIR__ . "/route2/bookController.php",
         ],
         [
-            // Add routes from commController and mount on book/
+            // Add routes from commController and mount on comm/
             "mount" => "comm",
             "file" => __DIR__ . "/route2/commController.php",
         ],
