@@ -36,6 +36,8 @@ Jag har försökt gå igenom lite av materialet för oophp-kursen, men det behö
 
 Jag fick till en mycket enkel test och några assertions. Mina tester som jag försökte göra fick väldigt många beroenden. Sökvägarna stämde inte heller, vilket de nog borde kunna göra. Jag blev osäker på hur mycket av di jag skulle mata in, helt enkelt. Till slut skulle ju hela anax kunna ligga i test och det var väl inte meningen tänker jag.
 
+För att ha en databas att testa mot skickade jag med en sqlite-fil. Allt bara för att komma igång någonstans.
+
 Jag hoppas på mer klarhet i nästa kursmoment.
 
 ####Några reflektioner över skillnaden med och utan modul?####

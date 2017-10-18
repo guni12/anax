@@ -5,3 +5,4 @@
 .phpmd.xml
 Makefile
 /config/database_mysql.php
+/config/database.php
