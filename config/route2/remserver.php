@@ -3,6 +3,7 @@
  * Routes for the REM Server.
  */
 return [
+    "mount" => "api",
     "routes" => [
         [
             "info" => "Start the session and initiate the REM Server.",

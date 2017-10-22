@@ -43,11 +43,6 @@ return [
             "file" => __DIR__ . "/route2/bookController.php",
         ],
         [
-            // Add routes from commController and mount on comm/
-            "mount" => "comm",
-            "file" => __DIR__ . "/route2/commController.php",
-        ],
-        [
             // Keep this last since its a catch all
             "mount" => null,
             "sort" => 999,

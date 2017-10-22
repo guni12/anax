@@ -161,13 +161,5 @@ return [
                 return $obj;
             }
         ],
-        "commController" => [
-            "shared" => true,
-            "callback" => function () {
-                $obj = new \Anax\Comments\CommController();
-                $obj->setDI($this);
-                return $obj;
-            }
-        ],
     ],
 ];

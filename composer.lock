@@ -8,22 +8,19 @@
     "packages": [
         {
             "name": "anax/common",
-            "version": "v1.0.19",
+            "version": "v1.0.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/canax/common.git",
-                "reference": "0ee6a4a6823f95a28b31f7782364b8ad1aba8a8b"
+                "reference": "81884238755442413dcbdeaf6dd2f668aa7a70e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/canax/common/zipball/0ee6a4a6823f95a28b31f7782364b8ad1aba8a8b",
-                "reference": "0ee6a4a6823f95a28b31f7782364b8ad1aba8a8b",
+                "url": "https://api.github.com/repos/canax/common/zipball/81884238755442413dcbdeaf6dd2f668aa7a70e6",
+                "reference": "81884238755442413dcbdeaf6dd2f668aa7a70e6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
-            },
-            "require-dev": {
                 "php": ">=5.6"
             },
             "type": "library",
@@ -56,7 +53,7 @@
                 "micro",
                 "mvc"
             ],
-            "time": "2017-09-25T11:49:52+00:00"
+            "time": "2017-10-19T13:51:37+00:00"
         },
         {
             "name": "anax/configure",
@@ -699,16 +696,16 @@
         },
         {
             "name": "guni12/comment",
-            "version": "v1.0.3",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guni12/comment.git",
-                "reference": "40f89371ac30e05b9e40e73ef5d56d98c6e281bb"
+                "reference": "9c526f1d5fcdcd6dfbeeed824fc524ab234d4904"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guni12/comment/zipball/40f89371ac30e05b9e40e73ef5d56d98c6e281bb",
-                "reference": "40f89371ac30e05b9e40e73ef5d56d98c6e281bb",
+                "url": "https://api.github.com/repos/guni12/comment/zipball/9c526f1d5fcdcd6dfbeeed824fc524ab234d4904",
+                "reference": "9c526f1d5fcdcd6dfbeeed824fc524ab234d4904",
                 "shasum": ""
             },
             "require": {
@@ -755,7 +752,7 @@
                 "micro",
                 "mvc"
             ],
-            "time": "2017-10-17T18:50:11+00:00"
+            "time": "2017-10-21T21:38:27+00:00"
         },
         {
             "name": "michelf/php-markdown",

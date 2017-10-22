@@ -5,7 +5,6 @@
  * Example for SQLite.
  *  "dsn" => "sqlite:memory::",
  *
- * Koll om github tar bor filen eller ej.
  */
 
 /*
@@ -23,4 +22,7 @@ return [
         // True to be verbose on connection failed
         "debug_connect"   => false,
 ];
+
+
+NB!!! Change name of your file to database.php !!!!!!!
 */
